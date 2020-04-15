@@ -6,27 +6,36 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './Timer.css';
 
-export default function Item(props) {
+export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [min, setMin] = useState(24);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
 
   useEffect(async () => {
-    const {data} = await axios.get(`/api/timer/${timerlink}`);
+    console.log('first use effect');
+    const {data} = await axios.get(`/api/timers/${timerlink}`);
+    console.log(data);
     if (data.adminLink === timerlink) setIsAdmin(true);
+    if (data.isPomodoro) setMin(24);
     setTimerData(data);
   }, []);
 
   useEffect(() => {
-    if (min != 24) startTimer();
-  }, [min]);
+    if (isTimerRunning) startTimer();
+  }, [sec]);
 
   const startTimer = () => {
+    setIsTimerRunning(true);
     setTimeout(() => {
-      let minn = min;
-      setMin(minn - 1);
+      if (sec === 0) {
+        setSec(59);
+        setMin(min - 1);
+        return;
+      }
+      setSec(sec - 1);
     }, 1000);
   };
 
