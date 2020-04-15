@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 //import './index.css';
 import App from './App';
-import Item from './Item';
+import Timer from './Timer';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -11,7 +11,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route component={App} path="/" exact />
-        <Route component={Item} path="/:id" exact />
+        <Route component={Timer} path="/:timerlink" exact />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
@@ -21,4 +21,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
