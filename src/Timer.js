@@ -19,17 +19,31 @@ export default function Timer(props) {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     if (data.adminLink === timerlink) setIsAdmin(true);
     if (data.isPomodoro) setMin(24);
-    //console.log(differenceInSeconds(new Date(data.runTimerTime), new Date()));
-    const start = new Date(data.runTimerTime);
-    const current = new Date();
-    const diff = differenceInSeconds(current, start);
-    console.log(diff);
     setTimerData(data);
   }, []);
 
+  useEffect(() => {
+    console.log("aa")
+    const {runTimerTime} = timerData;
+    const start = new Date(runTimerTime);
+    /* console.log(start); */
+
+    setInterval(() => {
+      const current = new Date();
+      const diffInSec = differenceInSeconds(current, start);
+      const diffInMin = differenceInMinutes(current, start);
+      const test = diffInSec - diffInMin * 60;
+      console.log(test)
+      console.log(diffInSec,diffInMin)
+      setMin(25 - diffInMin);
+      setSec(59 - test);
+      /* console.log(diffMin); */
+    },1000)
+  }, [min]);
+
   const startTimer = () => {
     const {adminLink} = timerData;
-    axios.put('/api/setruntime', {adminLink, test: new Date()});
+    axios.put('/api/setruntime', {adminLink});
   };
 
   return (
