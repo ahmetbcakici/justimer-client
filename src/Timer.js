@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {differenceInSeconds, differenceInMinutes} from 'date-fns';
 
 import axios from 'axios';
 import Navbar from './components/Navbar';
@@ -15,28 +16,20 @@ export default function Timer(props) {
   const {timerlink} = props.match.params;
 
   useEffect(async () => {
-    console.log('first use effect');
     const {data} = await axios.get(`/api/timers/${timerlink}`);
-    console.log(data);
     if (data.adminLink === timerlink) setIsAdmin(true);
     if (data.isPomodoro) setMin(24);
+    //console.log(differenceInSeconds(new Date(data.runTimerTime), new Date()));
+    const start = new Date(data.runTimerTime);
+    const current = new Date();
+    const diff = differenceInSeconds(current, start);
+    console.log(diff);
     setTimerData(data);
   }, []);
 
-  useEffect(() => {
-    if (isTimerRunning) startTimer();
-  }, [sec]);
-
   const startTimer = () => {
-    setIsTimerRunning(true);
-    setTimeout(() => {
-      if (sec === 0) {
-        setSec(59);
-        setMin(min - 1);
-        return;
-      }
-      setSec(sec - 1);
-    }, 1000);
+    const {adminLink} = timerData;
+    axios.put('/api/setruntime', {adminLink, test: new Date()});
   };
 
   return (
