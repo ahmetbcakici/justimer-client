@@ -23,15 +23,19 @@ export default function Timer(props) {
   }, []);
 
   useEffect(() => {
-    console.log("aa")
-    const {runTimerTime} = timerData;
-    const start = new Date(runTimerTime);
+    console.log("LAN AHMMMMSAMSMM")
+
     /* console.log(start); */
 
     setInterval(() => {
+      console.log("bom")
+      const {runTimerTime} = timerData;
+      const start = new Date(runTimerTime);
+      console.log(start)
       const current = new Date();
       const diffInSec = differenceInSeconds(current, start);
       const diffInMin = differenceInMinutes(current, start);
+      if(isNaN(diffInMin)) return;
       const test = diffInSec - diffInMin * 60;
       console.log(test)
       console.log(diffInSec,diffInMin)
@@ -39,7 +43,7 @@ export default function Timer(props) {
       setSec(59 - test);
       /* console.log(diffMin); */
     },1000)
-  }, [min]);
+  }, [timerData]);
 
   const startTimer = () => {
     const {adminLink} = timerData;
