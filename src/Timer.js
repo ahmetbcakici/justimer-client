@@ -28,11 +28,12 @@ export default class Timer extends Component {
     if (data.adminLink === this.state.timerlink) this.setState({isAdmin:true})
     if (data.isPomodoro) this.setState({min:24})
     this.setState({timerData:data})
-    setInterval(this.timer,1000)
-  }
+    
+    //setInterval(this.timer,1000)
 
-  componentDidUpdate(){
-  
+    setInterval(() => {
+      this.timer()
+    }, 1000)
   }
 
   timer = () => {
