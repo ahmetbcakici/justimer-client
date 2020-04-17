@@ -6,10 +6,8 @@ import axios from 'axios';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './Timer.css';
-import {startOfYesterday} from 'date-fns/esm';
 
 export default function Timer(props) {
-  //const [timerData, setTimerData] = useState('');
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [min, setMin] = useState(0);
@@ -33,9 +31,10 @@ export default function Timer(props) {
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
-    const diffInSecRemain = diffInSec - diffInMin * 60;
+    let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
+    //if(diffInSecRemain.toString().length < 2 ) diffInSecRemain = "0" + diffInSecRemain; 
     setMin(24 - diffInMin);
-    setSec(59 - diffInSecRemain);
+    setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
@@ -50,8 +49,8 @@ export default function Timer(props) {
     axios.put('/api/setruntime', {adminLink});
     getDatasetStates();
   };
-
-  const {viewLink, bellSound} = timerData;
+  
+  const {viewLink, bellSound, runTimerTime} = timerData;
   const {hostname} = window.location;
 
   return (
@@ -106,8 +105,9 @@ export default function Timer(props) {
           type="button"
           className="btn btn-secondary btn-lg w-25"
           onClick={startTimer}
+          disabled={runTimerTime ? true : false}
         >
-          START Timer
+          {runTimerTime ? 'Timer Started' : 'Start Timer'}
         </button>
         <br />
         <br />
@@ -136,7 +136,7 @@ export default function Timer(props) {
           </select>
         </div>
       </div>
-
+      
       <Footer />
     </div>
   );
