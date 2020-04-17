@@ -51,13 +51,17 @@ export default function Timer(props) {
 
   const {viewLink, bellSound} = timerData;
   const {hostname} = window.location;
+
   return (
     <div>
       <Navbar />
       {/* Viewer Link Area */}
       <div className="p-2 bg-dark text-white text-center">
         <span className="input-group input-group-center w-25">
-          <span className="pt-1">Viewer Link:</span>&nbsp;&nbsp;
+          <span className="pt-1">
+            {isAdmin ? 'Viewer Link:' : 'Share Link:'}
+          </span>
+          &nbsp;&nbsp;
           <input
             type="text"
             className="form-control"
@@ -74,7 +78,7 @@ export default function Timer(props) {
               </CopyToClipboard>
             </span>
           </div>
-          <div className="input-group-append">
+          <div className="input-group-append" style={{display: !isAdmin ? 'none' : ''}}>
             <span className="input-group-text" id="basic-addon2">
               <a href="#">
                 <i className="fas fa-cog"></i>
@@ -84,9 +88,12 @@ export default function Timer(props) {
         </span>
       </div>
 
-      {/* Timer Area */}
       <div className="text-center">
         <p className="display-1">{`${min}:${sec}`}</p>
+      </div>
+
+      {/* Timer Management Area */}
+      <div className="text-center" style={{display: !isAdmin ? 'none' : ''}}>
         <button
           type="button"
           className="btn btn-secondary btn-lg w-25"
