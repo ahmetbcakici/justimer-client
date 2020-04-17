@@ -29,6 +29,7 @@ export default function Timer(props) {
   const timer = () => {
     const {runTimerTime} = timerData;
     const start = new Date(runTimerTime);
+    if (isNaN(start)) return;
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
@@ -47,6 +48,7 @@ export default function Timer(props) {
   const startTimer = () => {
     const {adminLink} = timerData;
     axios.put('/api/setruntime', {adminLink});
+    getDatasetStates();
   };
 
   const {viewLink, bellSound} = timerData;
@@ -67,18 +69,23 @@ export default function Timer(props) {
             className="form-control"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
-            value={`${hostname}/${viewLink}`}
+            /* value={`${hostname}/${viewLink}`} */
+            value={`localhost:3000/${viewLink}`}
           />
           <div className="input-group-append">
             <span className="input-group-text" id="basic-addon2">
-              <CopyToClipboard text={`${hostname}/${viewLink}`}>
+              {/* <CopyToClipboard text={`${hostname}/${viewLink}`}> */}
+              <CopyToClipboard text={`localhost:3000/${viewLink}`}>
                 <a href="#">
                   <i className="fas fa-copy"></i>
                 </a>
               </CopyToClipboard>
             </span>
           </div>
-          <div className="input-group-append" style={{display: !isAdmin ? 'none' : ''}}>
+          <div
+            className="input-group-append"
+            style={{display: !isAdmin ? 'none' : ''}}
+          >
             <span className="input-group-text" id="basic-addon2">
               <a href="#">
                 <i className="fas fa-cog"></i>
@@ -88,6 +95,7 @@ export default function Timer(props) {
         </span>
       </div>
 
+      {/* Timer Area */}
       <div className="text-center">
         <p className="display-1">{`${min}:${sec}`}</p>
       </div>
