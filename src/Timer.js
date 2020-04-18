@@ -12,6 +12,7 @@ export default function Timer(props) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
+  const [firstStart, setFirstStart] = useState(false);
   const {timerlink} = props.match.params;
 
   useEffect(() => {
@@ -20,33 +21,44 @@ export default function Timer(props) {
 
   useEffect(() => {
     setInterval(() => {
-      if (timerData !== '') timer();
+      if (timerData !== '' && !firstStart) {
+        console.log("bom")
+        timer();
+      }
     }, 1000);
   }, [timerData]);
 
   const timer = () => {
-    const {runTimerTime} = timerData;
+    const {runTimerTime} = timerData; // güncel son hali alamıyor
+    console.log(runTimerTime) // GUNCEL VERI DEGIL 
     const start = new Date(runTimerTime);
+    console.log(start)
     if (isNaN(start)) return;
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
+    console.log(diffInMin)
+    if(diffInMin === 1) {
+      startTimer();
+      return;
+    }
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
-    //if(diffInSecRemain.toString().length < 2 ) diffInSecRemain = "0" + diffInSecRemain; 
-    setMin(24 - diffInMin);
+    if(diffInSecRemain.toString().length < 2 ) diffInSecRemain = "0" + diffInSecRemain; 
+    setMin(0 - diffInMin);
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     setIsAdmin(data.adminLink === timerlink);
-    setMin(data.isPomodoro ? 24 : 0);
+    setMin(data.isPomodoro ? 0 : 0);
     setTimerData(data);
   };
 
-  const startTimer = () => {
+  const startTimer = async () => {
+    if(!firstStart) setFirstStart(true);
     const {adminLink} = timerData;
-    axios.put('/api/setruntime', {adminLink});
+    const res = await axios.put('/api/setruntime', {adminLink});    
     getDatasetStates();
   };
   
@@ -104,7 +116,7 @@ export default function Timer(props) {
         <button
           type="button"
           className="btn btn-secondary btn-lg w-25"
-          onClick={startTimer}
+          onClick={() => {startTimer();}}
           disabled={runTimerTime ? true : false}
         >
           {runTimerTime ? 'Timer Started' : 'Start Timer'}
