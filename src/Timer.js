@@ -12,6 +12,7 @@ let myTimer;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isWorkSession, setIsWorkSession] = useState(true);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
@@ -24,8 +25,6 @@ export default function Timer(props) {
   useEffect(() => {
     console.log("useEEEE")
 
-    
-
     if(timerData.runTimerTime) myTimer = setInterval(() => {timer();},1000);
   }, [timerData]);
 
@@ -36,32 +35,32 @@ export default function Timer(props) {
   }, [timerData]); */
 
   const timer = () => {
-    console.log("timer")
     const {runTimerTime} = timerData;
     //console.log(runTimerTime);
     const start = new Date(runTimerTime);
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
-    console.log(diffInMin)
-    if(diffInMin == 1) {
+    if(diffInMin === (isWorkSession ? 2 : 1)) {
+      setIsWorkSession(!isWorkSession)
       console.log("clear")
       clearInterval(myTimer);
       startTimer();
       console.log("x")
+      
       return
     }
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
-    setMin(0 - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
+    setMin((isWorkSession ? 1 : 0) - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     setIsAdmin(data.adminLink === timerlink);
-    setMin(data.isPomodoro ? 0 : 0);
+    setMin(data.isPomodoro ? 1 : 0);
     setTimerData(data);
   };
 
