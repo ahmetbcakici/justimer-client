@@ -7,7 +7,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './Timer.css';
 
-
 let myTimer;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
@@ -19,48 +18,42 @@ export default function Timer(props) {
 
   useEffect(() => {
     console.log('1. useE');
+    console.log(props.state);
     getDatasetStates();
   }, []);
 
   useEffect(() => {
-    console.log("useEEEE")
+    console.log('useEEEE');
 
-    if(timerData.runTimerTime) myTimer = setInterval(() => {timer();},1000);
+    if (timerData.runTimerTime)
+      myTimer = setInterval(() => {
+        timer();
+      }, 1000);
   }, [timerData]);
 
-  /*   useEffect(() => {
-    setInterval(() => {
-      if(timerData.runTimerTime !== '' && timerData.runTimerTime !== undefined) timer();
-    }, 1000);
-  }, [timerData]); */
-
   const timer = () => {
-    const {runTimerTime} = timerData;
-    //console.log(runTimerTime);
+    const {runTimerTime, workTime, breakTime} = timerData;
     const start = new Date(runTimerTime);
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
-    if(diffInMin === (isWorkSession ? 2 : 1)) {
-      setIsWorkSession(!isWorkSession)
-      console.log("clear")
+    if (diffInMin === (isWorkSession ? workTime : breakTime)) {
+      setIsWorkSession(!isWorkSession);
       clearInterval(myTimer);
       startTimer();
-      console.log("x")
-      
-      return
+      return;
     }
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
-    setMin((isWorkSession ? 1 : 0) - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
+    setMin((isWorkSession ? workTime - 1 : breakTime - 1) - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     setIsAdmin(data.adminLink === timerlink);
-    setMin(data.isPomodoro ? 1 : 0);
+    setMin(data.workTime - 1);
     setTimerData(data);
   };
 

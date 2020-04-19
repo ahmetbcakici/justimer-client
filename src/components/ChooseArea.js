@@ -1,37 +1,42 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import {Redirect} from 'react-router-dom';
 
 import './ChooseArea.css';
 
-Modal.setAppElement('#root')
+Modal.setAppElement('#root');
 
 export default function ChooseArea() {
-  ///var subtitle;
-  const [redirectTo, setRedirectTo] = useState('')
-  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [redirectTo, setRedirectTo] = useState('');
+  const [manualWorkTime, setManualWorkTime] = useState('');
+  const [manualBreakTime, setManualBreakTime] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function openModal() {
     setIsModalOpen(true);
   }
- 
+
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     //subtitle.style.color = '#f00';
   }
- 
-  function closeModal(){
+
+  function closeModal() {
     setIsModalOpen(false);
   }
 
-  const generateTimer = async (isPomodoro = false) => {
-    if (isPomodoro !== true) isPomodoro = false; 
-    const res = await axios.post('/api/generatetimer', {isPomodoro});
+  const generateTimer = async () => {
+    //if(!manualTime) return; // can not be empty value
+    closeModal();
+    const res = await axios.post('/api/generatetimer', {
+      manualWorkTime,
+      manualBreakTime,
+    });
     setRedirectTo(res.data);
   };
 
-  if(redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />
+  if (redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />;
 
   return (
     <div className="parent p-5">
@@ -57,36 +62,41 @@ export default function ChooseArea() {
         </div>
       </div>
 
-        <Modal
-          isOpen={isModalOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customModalStyles}
-          contentLabel="Example Modal"
-        >
- 
-          <h2>Hello</h2>
-          <button onClick={closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
-        </Modal>
+      <Modal
+        isOpen={isModalOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customModalStyles}
+        contentLabel="Example Modal"
+      >
+        <h2>Hello</h2>
+        <button onClick={closeModal}>&times;</button>
+        <div>I am a modal</div>
+        <form>
+          <input
+            placeholder="Work Time"
+            value={manualWorkTime}
+            onChange={(e) => setManualWorkTime(e.target.value)}
+          />
+          <input
+            placeholder="Break Time"
+            value={manualBreakTime}
+            onChange={(e) => setManualBreakTime(e.target.value)}
+          />
+          <button onClick={generateTimer}>OK</button>
+        </form>
+      </Modal>
     </div>
   );
 }
 
 const customModalStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-  }
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
 };
