@@ -1,67 +1,74 @@
 import React, {useState, useEffect} from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {differenceInSeconds, differenceInMinutes} from 'date-fns';
-
 import axios from 'axios';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './Timer.css';
 
+
+let myTimer;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
-  const [firstStart, setFirstStart] = useState(false);
   const {timerlink} = props.match.params;
 
   useEffect(() => {
+    console.log('1. useE');
     getDatasetStates();
   }, []);
 
   useEffect(() => {
-    setInterval(() => {
-      if (timerData !== '' && !firstStart) {
-        console.log("bom")
-        timer();
-      }
-    }, 1000);
+    console.log("useEEEE")
+
+    
+
+    if(timerData.runTimerTime) myTimer = setInterval(() => {timer();},1000);
   }, [timerData]);
 
+  /*   useEffect(() => {
+    setInterval(() => {
+      if(timerData.runTimerTime !== '' && timerData.runTimerTime !== undefined) timer();
+    }, 1000);
+  }, [timerData]); */
+
   const timer = () => {
-    const {runTimerTime} = timerData; // güncel son hali alamıyor
-    console.log(runTimerTime) // GUNCEL VERI DEGIL 
+    console.log("timer")
+    const {runTimerTime} = timerData;
+    //console.log(runTimerTime);
     const start = new Date(runTimerTime);
-    console.log(start)
-    if (isNaN(start)) return;
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
     console.log(diffInMin)
-    if(diffInMin === 1) {
-      startTimer();
-      return;
+    if(diffInMin == 27) {
+      console.log("clear")
+      clearInterval(myTimer);
+      
     }
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
-    if(diffInSecRemain.toString().length < 2 ) diffInSecRemain = "0" + diffInSecRemain; 
-    setMin(0 - diffInMin);
+    if (diffInSecRemain.toString().length < 2)
+      diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
+    setMin(1 - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     setIsAdmin(data.adminLink === timerlink);
-    setMin(data.isPomodoro ? 0 : 0);
+    setMin(data.isPomodoro ? 1 : 0);
     setTimerData(data);
   };
 
   const startTimer = async () => {
-    if(!firstStart) setFirstStart(true);
     const {adminLink} = timerData;
-    const res = await axios.put('/api/setruntime', {adminLink});    
+    await axios.put('/api/setruntime', {adminLink});
     getDatasetStates();
   };
-  
+
   const {viewLink, bellSound, runTimerTime} = timerData;
   const {hostname} = window.location;
 
@@ -116,7 +123,9 @@ export default function Timer(props) {
         <button
           type="button"
           className="btn btn-secondary btn-lg w-25"
-          onClick={() => {startTimer();}}
+          onClick={() => {
+            startTimer();
+          }}
           disabled={runTimerTime ? true : false}
         >
           {runTimerTime ? 'Timer Started' : 'Start Timer'}
@@ -148,7 +157,7 @@ export default function Timer(props) {
           </select>
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );
