@@ -44,22 +44,24 @@ export default function Timer(props) {
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
     console.log(diffInMin)
-    if(diffInMin == 27) {
+    if(diffInMin == 1) {
       console.log("clear")
       clearInterval(myTimer);
-      
+      startTimer();
+      console.log("x")
+      return
     }
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
-    setMin(1 - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
+    setMin(0 - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
     setIsAdmin(data.adminLink === timerlink);
-    setMin(data.isPomodoro ? 1 : 0);
+    setMin(data.isPomodoro ? 0 : 0);
     setTimerData(data);
   };
 
