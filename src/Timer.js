@@ -52,6 +52,20 @@ export default function Timer(props) {
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
+
+    /* formula to calculate is work time or break time  */
+/*     const {firstRunTimerTime, workTime, breakTime} = data;
+    const start = new Date(firstRunTimerTime);
+    const current = new Date();
+    const diffInMin = differenceInMinutes(current, start);    
+    const oturum_sure_toplami = workTime + breakTime;
+    let sonuc = Math.floor(diffInMin / oturum_sure_toplami);
+    sonuc = diffInMin - (oturum_sure_toplami * sonuc);
+    sonuc = oturum_sure_toplami - sonuc;
+    console.log(sonuc)
+    if(sonuc > breakTime) console.log("worksesion")
+    else console.log("breaksession") */
+
     setIsAdmin(data.adminLink === timerlink);
     setMin(data.workTime - 1);
     setTimerData(data);
