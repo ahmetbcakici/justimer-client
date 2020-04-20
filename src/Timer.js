@@ -19,29 +19,34 @@ export default function Timer(props) {
   }, []);
 
   useEffect(() => {
-    if (timerData.firstRunTimerTime)
+    if (timerData.firstRunTimerTime) {
+      timer();
       setInterval(() => {
         timer();
       }, 1000);
+    }
   }, [timerData]);
 
   const timer = () => {
+    console.log('tmr');
     const {firstRunTimerTime, workTime, breakTime} = timerData;
     const start = new Date(firstRunTimerTime);
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
-    
+
     const totalSessionMin = workTime + breakTime;
-    const calculation =  totalSessionMin - (diffInMin -(totalSessionMin *  Math.floor(diffInMin / totalSessionMin)));    
+    const calculation =
+      totalSessionMin -
+      (diffInMin - totalSessionMin * Math.floor(diffInMin / totalSessionMin));
 
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
-      
-    if(calculation > breakTime) setMin(calculation - breakTime - 1)
-    else setMin(calculation - 1)
-    
+
+    if (calculation > breakTime) setMin(calculation - breakTime - 1);
+    else setMin(calculation - 1);
+
     setSec(diffInSecRemain);
   };
 
