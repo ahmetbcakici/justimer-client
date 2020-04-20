@@ -7,64 +7,46 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './Timer.css';
 
-let myTimer;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isWorkSession, setIsWorkSession] = useState(true);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
 
   useEffect(() => {
-    console.log('1. useE');
-    console.log(props.state);
     getDatasetStates();
   }, []);
 
   useEffect(() => {
-    console.log('useEEEE');
-
-    if (timerData.runTimerTime)
-      myTimer = setInterval(() => {
+    if (timerData.firstRunTimerTime)
+      setInterval(() => {
         timer();
       }, 1000);
   }, [timerData]);
 
   const timer = () => {
-    const {runTimerTime, workTime, breakTime} = timerData;
-    const start = new Date(runTimerTime);
+    const {firstRunTimerTime, workTime, breakTime} = timerData;
+    const start = new Date(firstRunTimerTime);
     const current = new Date();
     const diffInSec = differenceInSeconds(current, start);
     const diffInMin = differenceInMinutes(current, start);
-    if (diffInMin === (isWorkSession ? workTime : breakTime)) {
-      setIsWorkSession(!isWorkSession);
-      clearInterval(myTimer);
-      startTimer();
-      return;
-    }
+    
+    const totalSessionMin = workTime + breakTime;
+    const calculation =  totalSessionMin - (diffInMin -(totalSessionMin *  Math.floor(diffInMin / totalSessionMin)));    
+
     let diffInSecRemain = 59 - (diffInSec - diffInMin * 60);
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
-    setMin((isWorkSession ? workTime - 1 : breakTime - 1) - diffInMin); // shoul be dynamic value number front of minus '-' symbol (0 for development)
+      
+    if(calculation > breakTime) setMin(calculation - breakTime - 1)
+    else setMin(calculation - 1)
+    
     setSec(diffInSecRemain);
   };
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
-
-    /* formula to calculate is work time or break time  */
-/*     const {firstRunTimerTime, workTime, breakTime} = data;
-    const start = new Date(firstRunTimerTime);
-    const current = new Date();
-    const diffInMin = differenceInMinutes(current, start);    
-    const oturum_sure_toplami = workTime + breakTime;
-    let sonuc = Math.floor(diffInMin / oturum_sure_toplami);
-    sonuc = diffInMin - (oturum_sure_toplami * sonuc);
-    sonuc = oturum_sure_toplami - sonuc;
-    console.log(sonuc)
-    if(sonuc > breakTime) console.log("worksesion")
-    else console.log("breaksession") */
 
     setIsAdmin(data.adminLink === timerlink);
     setMin(data.workTime - 1);
@@ -77,7 +59,7 @@ export default function Timer(props) {
     getDatasetStates();
   };
 
-  const {viewLink, bellSound, runTimerTime} = timerData;
+  const {viewLink, bellSound, firstRunTimerTime} = timerData;
   const {hostname} = window.location;
 
   return (
@@ -134,9 +116,9 @@ export default function Timer(props) {
           onClick={() => {
             startTimer();
           }}
-          disabled={runTimerTime ? true : false}
+          disabled={firstRunTimerTime ? true : false}
         >
-          {runTimerTime ? 'Timer Started' : 'Start Timer'}
+          {firstRunTimerTime ? 'Timer Started' : 'Start Timer'}
         </button>
         <br />
         <br />
