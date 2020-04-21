@@ -2,10 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {differenceInSeconds, differenceInMinutes} from 'date-fns';
 import axios from 'axios';
+import io from 'socket.io-client';
+import Sound from 'react-sound';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import soundfile from './bell.mp3';
 import './Timer.css';
+
+const socket = io('http://localhost:9995');
 
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
@@ -13,6 +18,10 @@ export default function Timer(props) {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
+
+  socket.on('starttimer',(data) => {
+    console.log(data)
+  })
 
   useEffect(() => {
     getDatasetStates();
@@ -62,6 +71,7 @@ export default function Timer(props) {
     const {adminLink} = timerData;
     await axios.put('/api/setruntime', {adminLink});
     getDatasetStates();
+    socket.emit('starttimer',{ad:'ahmet'});
   };
 
   const {viewLink, bellSound, firstRunTimerTime} = timerData;
@@ -69,6 +79,7 @@ export default function Timer(props) {
 
   return (
     <div>
+      {/* <Sound url={soundfile} playStatus={Sound.status.PLAYING} /> */}
       <Navbar />
       {/* Viewer Link Area */}
       <div className="p-2 bg-dark text-white text-center">
