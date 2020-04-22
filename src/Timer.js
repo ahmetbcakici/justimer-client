@@ -12,6 +12,14 @@ import './Timer.css';
 
 const socket = io('http://localhost:9995');
 
+/* socket.on('starttimer',(data) => {
+  console.log(data)
+/*   if(!timerData.firstRunTimerTime) {
+    console.log("object")
+    //startTimer();
+  }
+}) */
+let dinle = false;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -19,9 +27,15 @@ export default function Timer(props) {
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
 
-  socket.on('starttimer',(data) => {
-    console.log(data)
-  })
+  socket.on('starttimerr', (data) => {
+    if (!dinle) {
+      if (!timerData.firstRunTimerTime && timerData) {
+        console.log('object');
+        startTimer();
+        dinle = true;
+      }
+    }
+  });
 
   useEffect(() => {
     getDatasetStates();
@@ -37,7 +51,6 @@ export default function Timer(props) {
   }, [timerData]);
 
   const timer = () => {
-    console.log('tmr');
     const {firstRunTimerTime, workTime, breakTime} = timerData;
     const start = new Date(firstRunTimerTime);
     const current = new Date();
@@ -71,7 +84,7 @@ export default function Timer(props) {
     const {adminLink} = timerData;
     await axios.put('/api/setruntime', {adminLink});
     getDatasetStates();
-    socket.emit('starttimer',{ad:'ahmet'});
+    socket.emit('starttimer', {ad: 'ahmet'});
   };
 
   const {viewLink, bellSound, firstRunTimerTime} = timerData;
