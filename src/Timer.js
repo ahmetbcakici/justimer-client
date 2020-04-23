@@ -12,13 +12,6 @@ import './Timer.css';
 
 const socket = io('http://localhost:9995');
 
-/* socket.on('starttimer',(data) => {
-  console.log(data)
-/*   if(!timerData.firstRunTimerTime) {
-    console.log("object")
-    //startTimer();
-  }
-}) */
 let dinle = false;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
@@ -65,8 +58,20 @@ export default function Timer(props) {
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
 
-    if (calculation > breakTime) setMin(calculation - breakTime - 1);
-    else setMin(calculation - 1);
+      let remainMinToEndSession;
+
+    if (calculation > breakTime) {
+      // workTime
+      remainMinToEndSession = calculation - breakTime - 1;
+      setMin(remainMinToEndSession);
+    }
+    else {
+      // breakTime
+      remainMinToEndSession = calculation - 1;
+      setMin(remainMinToEndSession)
+    }
+
+    if(diffInSecRemain == 0 && remainMinToEndSession == 0) console.log("ring")
 
     setSec(diffInSecRemain);
   };
@@ -88,6 +93,8 @@ export default function Timer(props) {
   const {viewLink, bellSound, firstRunTimerTime} = timerData;
   const {hostname} = window.location;
 
+
+  if(!timerData) return <div>Not Found</div>
   return (
     <div>
       {/* <Sound url={soundfile} playStatus={Sound.status.PLAYING} /> */}
