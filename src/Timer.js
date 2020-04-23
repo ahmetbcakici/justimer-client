@@ -30,8 +30,7 @@ export default function Timer(props) {
   socket.on('starttimerr', (data) => {
     if (!dinle) {
       if (!timerData.firstRunTimerTime && timerData) {
-        console.log('object');
-        startTimer();
+        getDatasetStates();
         dinle = true;
       }
     }
@@ -74,7 +73,6 @@ export default function Timer(props) {
 
   const getDatasetStates = async () => {
     const {data} = await axios.get(`/api/timers/${timerlink}`);
-
     setIsAdmin(data.adminLink === timerlink);
     setMin(data.workTime - 1);
     setTimerData(data);
@@ -84,7 +82,7 @@ export default function Timer(props) {
     const {adminLink} = timerData;
     await axios.put('/api/setruntime', {adminLink});
     getDatasetStates();
-    socket.emit('starttimer', {ad: 'ahmet'});
+    socket.emit('starttimer', {adminLink});
   };
 
   const {viewLink, bellSound, firstRunTimerTime} = timerData;
