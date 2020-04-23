@@ -39,8 +39,19 @@ export default function ChooseArea() {
   if (redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />;
 
   return (
-    <div className="parent p-5">
-      <div className="container">
+    <div className="parent">
+      <h1 className="text-center">TIMER</h1>
+      <div className="row">
+        <div className="col-6 pomodoro-section pt-5">
+          <p className="text-center pt-5">
+            <a onClick={() => generateTimer(true)}>POMODORO</a>
+          </p>
+        </div>
+        <div className="col-6 custom-section pt-5"><p className="text-center pt-5">
+            <a onClick={openModal}>CUSTOM</a>
+          </p></div>
+      </div>
+      {/*       <div className="container">
         <p className="display-3 text-center font-weight-bold text-white">
           YOUR CUSTOM TIMERS
         </p>
@@ -60,7 +71,7 @@ export default function ChooseArea() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <Modal
         isOpen={isModalOpen}
