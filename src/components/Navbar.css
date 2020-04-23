@@ -1,3 +1,8 @@
 .navbar {
-    background: linear-gradient(45deg, transparent 0%, transparent 57%, #423246 100%), linear-gradient(-45deg, #8f5046 0%, #A14436 0.3%, #4C2556 112%, transparent 11%), linear-gradient(-90deg, #A14436 100%, #A14436 65%, transparent 20%);
+    /* background: linear-gradient(45deg, transparent 0%, transparent 57%, #423246 100%), linear-gradient(-45deg, #8f5046 0%, #A14436 0.3%, #4C2556 112%, transparent 11%), linear-gradient(-90deg, #A14436 100%, #A14436 65%, transparent 20%); */
+    background: linear-gradient(45deg, transparent 0%, transparent 57%, #ccc4ce 100%), linear-gradient(-45deg, #e4cecb 0%, rgb(129, 120, 119) 0.3%, rgb(61, 48, 65) 112%, transparent 11%), linear-gradient(-90deg, rgb(223, 145, 133) 100%, rgb(207, 189, 186) 65%, transparent 20%);
+}
+
+.logo {
+    width: 45%;
 }
