@@ -47,9 +47,11 @@ export default function ChooseArea() {
             <a onClick={() => generateTimer(true)}>POMODORO</a>
           </p>
         </div>
-        <div className="col-6 custom-section pt-5"><p className="text-center pt-5">
+        <div className="col-6 custom-section pt-5">
+          <p className="text-center pt-5">
             <a onClick={openModal}>CUSTOM</a>
-          </p></div>
+          </p>
+        </div>
       </div>
       {/*       <div className="container">
         <p className="display-3 text-center font-weight-bold text-white">
@@ -80,22 +82,35 @@ export default function ChooseArea() {
         style={customModalStyles}
         contentLabel="Example Modal"
       >
-        <h2>Hello</h2>
-        <button onClick={closeModal}>&times;</button>
-        <div>I am a modal</div>
+        <h2>Custom Timer Settings</h2>
         <form>
-          <input
-            placeholder="Work Time"
-            value={manualWorkTime}
-            onChange={(e) => setManualWorkTime(e.target.value)}
-          />
-          <input
-            placeholder="Break Time"
-            value={manualBreakTime}
-            onChange={(e) => setManualBreakTime(e.target.value)}
-          />
-          <button onClick={generateTimer}>OK</button>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Work Time (min)"
+              value={manualWorkTime}
+              onChange={(e) => setManualWorkTime(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Break Time (min)"
+              value={manualBreakTime}
+              onChange={(e) => setManualBreakTime(e.target.value)}
+            />
+          </div>
+          <div className="text-right">
+          <button className="btn btn-primary" onClick={generateTimer}>
+            Generate Timer!
+          </button>
+          </div>
         </form>
+
+        
+     
       </Modal>
     </div>
   );
