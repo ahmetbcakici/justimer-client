@@ -3,28 +3,30 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {differenceInSeconds, differenceInMinutes} from 'date-fns';
 import axios from 'axios';
 import io from 'socket.io-client';
-import Sound from 'react-sound';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import soundfile from './bell.mp3';
+import GithubCorner from 'react-github-corner';
+import logo from './assets/images/logo_new.png';
+import soundfile from './assets/mp3/bell.mp3';
 import './Timer.css';
 
 const socket = io('http://localhost:9995');
 
-let dinle = false;
+let socket_check = false;
 export default function Timer(props) {
   const [timerData, setTimerData] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
+  let audio = new Audio(soundfile)
 
   socket.on('starttimerr', (data) => {
-    if (!dinle) {
+    if (!socket_check) {
       if (!timerData.firstRunTimerTime && timerData) {
         getDatasetStates();
-        dinle = true;
+        socket_check = true;
       }
     }
   });
@@ -58,22 +60,27 @@ export default function Timer(props) {
     if (diffInSecRemain.toString().length < 2)
       diffInSecRemain = '0' + diffInSecRemain; // put zero front of seconds if there is just one numeral
 
-      let remainMinToEndSession;
+    let remainMinToEndSession;
 
     if (calculation > breakTime) {
       // workTime
       remainMinToEndSession = calculation - breakTime - 1;
       setMin(remainMinToEndSession);
-    }
-    else {
+    } else {
       // breakTime
       remainMinToEndSession = calculation - 1;
-      setMin(remainMinToEndSession)
+      setMin(remainMinToEndSession);
     }
 
-    if(diffInSecRemain == 0 && remainMinToEndSession == 0) console.log("ring")
-
+    ringHandle(diffInSecRemain, remainMinToEndSession);
     setSec(diffInSecRemain);
+  };
+
+  const ringHandle = (diffInSecRemain, remainMinToEndSession) => {
+    if (diffInSecRemain == 0 && remainMinToEndSession == 0) {
+      console.log("ring")
+      audio.play();
+    }
   };
 
   const getDatasetStates = async () => {
@@ -90,99 +97,81 @@ export default function Timer(props) {
     socket.emit('starttimer', {adminLink});
   };
 
-  const {viewLink, bellSound, firstRunTimerTime} = timerData;
+  const closeOverlay = (e) => {
+    e.target.style.display = 'none';
+  };
+
+  const {viewLink, firstRunTimerTime} = timerData;
   const {hostname} = window.location;
 
-
-  if(!timerData) return <div>Not Found</div>
+  if (!timerData) return <div>Not Found</div>;
   return (
     <div>
-      {/* <Sound url={soundfile} playStatus={Sound.status.PLAYING} /> */}
-      <Navbar />
+      {/*       <Sound url={soundfile} playStatus={ring} /> */}
+      <GithubCorner
+        href="https://github.com/ahmetbcakici/justimer-client"
+        direction={'right'}
+        size={95}
+      />
       {/* Viewer Link Area */}
       <div className="p-2 bg-dark text-white text-center">
-        <span className="input-group input-group-center w-25">
-          <span className="pt-1">
-            {isAdmin ? 'Viewer Link:' : 'Share Link:'}
-          </span>
-          &nbsp;&nbsp;
-          <input
-            type="text"
-            className="form-control"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            /* value={`${hostname}/${viewLink}`} */
-            value={`localhost:3000/${viewLink}`}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text" id="basic-addon2">
-              {/* <CopyToClipboard text={`${hostname}/${viewLink}`}> */}
-              <CopyToClipboard text={`localhost:3000/${viewLink}`}>
-                <a href="#">
-                  <i className="fas fa-copy"></i>
-                </a>
-              </CopyToClipboard>
-            </span>
-          </div>
-          <div
-            className="input-group-append"
-            style={{display: !isAdmin ? 'none' : ''}}
-          >
-            <span className="input-group-text" id="basic-addon2">
+        <div className="text-left p-0 m-0">
+          <a href="/">
+            <img src={logo} alt="logo.png" width={75} />
+          </a>
+          <span className="pt-1 input-group-center">
+            {/* {isAdmin ? 'Viewer Link:' : 'Share Link:'} */}
+            Share Link:&emsp;
+            {/* <CopyToClipboard text={`${hostname}/${viewLink}`}> */}
+            <CopyToClipboard text={`localhost:3000/${viewLink}`}>
               <a href="#">
-                <i className="fas fa-cog"></i>
+                <span>{`localhost:3000/${viewLink}`}</span>
               </a>
-            </span>
-          </div>
-        </span>
+            </CopyToClipboard>
+          </span>
+        </div>
       </div>
 
       {/* Timer Area */}
-      <div className="text-center">
-        <p className="display-1">{`${min}:${sec}`}</p>
+      <div
+        id="overlay"
+        style={{display: firstRunTimerTime || !isAdmin ? 'none' : 'block'}}
+        onClick={(e) => {
+          closeOverlay(e);
+          startTimer();
+        }}
+      >
+        <br />
+        <br />
+        <br />
+        <p className="text-center display-1 text-white">
+          CLICK HERE TO START YOUR TIMER
+        </p>
+      </div>
+      <div className="text-center timer-area">
+        <p className="display-1 timer">{`${min}:${sec}`}</p>
+        <br />
+        {/* <p className="text-center ">{isWork}</p> */}
       </div>
 
       {/* Timer Management Area */}
-      <div className="text-center" style={{display: !isAdmin ? 'none' : ''}}>
+      {/*    <div className="text-center" style={{display: !isAdmin ? 'none' : ''}}>
         <button
           type="button"
-          className="btn btn-secondary btn-lg w-25"
+          className="btn btn-secondary btn-lg w-100"
           onClick={() => {
             startTimer();
           }}
           disabled={firstRunTimerTime ? true : false}
         >
+          <br/>
           {firstRunTimerTime ? 'Timer Started' : 'Start Timer'}
+          <br/>
+          <br/>
         </button>
         <br />
         <br />
-        <div className="form-check w-25 input-group-center border py-2">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Repeat timer sequence forever
-          </label>
-        </div>
-        <br />
-        <div className="input-group mb-3 w-25 input-group-center">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1">
-              <i className="fas fa-bell"></i>
-            </span>
-          </div>
-          <select className="custom-select" id="inputGroupSelect01">
-            <option defaultValue>{bellSound}</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-
-      <Footer />
+      </div> */}
     </div>
   );
 }
