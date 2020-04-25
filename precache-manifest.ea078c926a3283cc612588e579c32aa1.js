@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "856531fc3353b2a24c6df2c3cc2c692c",
+    "revision": "492ef34de6862287c51038bd215c70a5",
     "url": "/justimer-client/index.html"
   },
   {
-    "revision": "8656e5b78dcd8cd470c2",
+    "revision": "5019854da75df02a3648",
     "url": "/justimer-client/static/css/main.5fde7acf.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/justimer-client/static/js/2.6c73167f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8656e5b78dcd8cd470c2",
-    "url": "/justimer-client/static/js/main.ecd83b11.chunk.js"
+    "revision": "5019854da75df02a3648",
+    "url": "/justimer-client/static/js/main.da799a04.chunk.js"
   },
   {
     "revision": "fcdaf8d885ee05f8e921",
