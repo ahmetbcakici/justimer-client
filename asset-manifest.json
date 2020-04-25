@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/justimer-client/static/css/main.5fde7acf.chunk.css",
-    "main.js": "/justimer-client/static/js/main.d576ccb8.chunk.js",
-    "main.js.map": "/justimer-client/static/js/main.d576ccb8.chunk.js.map",
+    "main.js": "/justimer-client/static/js/main.cf0fe2b7.chunk.js",
+    "main.js.map": "/justimer-client/static/js/main.cf0fe2b7.chunk.js.map",
     "runtime-main.js": "/justimer-client/static/js/runtime-main.48778d15.js",
     "runtime-main.js.map": "/justimer-client/static/js/runtime-main.48778d15.js.map",
     "static/js/2.6c73167f.chunk.js": "/justimer-client/static/js/2.6c73167f.chunk.js",
     "static/js/2.6c73167f.chunk.js.map": "/justimer-client/static/js/2.6c73167f.chunk.js.map",
     "index.html": "/justimer-client/index.html",
-    "precache-manifest.a5dda84c789da4645f43c544b64f98f6.js": "/justimer-client/precache-manifest.a5dda84c789da4645f43c544b64f98f6.js",
+    "precache-manifest.535752a23ea46fc3e6a6f8c6c3b9b9da.js": "/justimer-client/precache-manifest.535752a23ea46fc3e6a6f8c6c3b9b9da.js",
     "service-worker.js": "/justimer-client/service-worker.js",
     "static/css/main.5fde7acf.chunk.css.map": "/justimer-client/static/css/main.5fde7acf.chunk.css.map",
     "static/js/2.6c73167f.chunk.js.LICENSE.txt": "/justimer-client/static/js/2.6c73167f.chunk.js.LICENSE.txt",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.48778d15.js",
     "static/js/2.6c73167f.chunk.js",
     "static/css/main.5fde7acf.chunk.css",
-    "static/js/main.d576ccb8.chunk.js"
+    "static/js/main.cf0fe2b7.chunk.js"
   ]
 }
