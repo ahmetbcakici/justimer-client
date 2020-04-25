@@ -1,4 +1,7 @@
 footer {
-    background-color: #DBDBDB;
-    /* background-color: #F5F5F5; */
+    background: linear-gradient(45deg, transparent 0%, transparent 57%, #ccc4ce 100%), linear-gradient(-45deg, #e4cecb 0%, rgb(129, 120, 119) 0.3%, rgb(61, 48, 65) 112%, transparent 11%), linear-gradient(-90deg, rgb(223, 145, 133) 100%, rgba(207, 189, 186, 0.747) 65%, transparent 20%);
+    padding-bottom: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

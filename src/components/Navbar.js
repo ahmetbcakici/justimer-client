@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.png';
+import logo from '../assets/images/logo.png';
 import GithubCorner from 'react-github-corner';
 import './Navbar.css';
 
@@ -15,9 +15,11 @@ export default function Navbar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto"></ul>
         <ul>
-          <a href="/">
+{/*           <a href="/">
           <img src={logo} alt="Logo" className="logo" />
-          </a>
+          share your timer
+          </a> */}
+          share your timer
         </ul>
       </div>
     </nav>

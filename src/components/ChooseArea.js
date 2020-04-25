@@ -53,27 +53,6 @@ export default function ChooseArea() {
           </p>
         </div>
       </div>
-      {/*       <div className="container">
-        <p className="display-3 text-center font-weight-bold text-white">
-          YOUR CUSTOM TIMERS
-        </p>
-        <p className="text-center text-white">Choose A Option:</p>
-        <div className="row text-center">
-          <div className="col-6">
-            <button
-              className="btn btn-danger"
-              onClick={() => generateTimer(true)}
-            >
-              POMODORO
-            </button>
-          </div>
-          <div className="col-6">
-            <button className="btn btn-danger" onClick={openModal}>
-              CUSTOM TIMER
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       <Modal
         isOpen={isModalOpen}
@@ -91,6 +70,7 @@ export default function ChooseArea() {
               placeholder="Work Time (min)"
               value={manualWorkTime}
               onChange={(e) => setManualWorkTime(e.target.value)}
+              required
             />
           </div>
           <div className="form-group">
@@ -100,6 +80,7 @@ export default function ChooseArea() {
               placeholder="Break Time (min)"
               value={manualBreakTime}
               onChange={(e) => setManualBreakTime(e.target.value)}
+              required
             />
           </div>
           <div className="text-right">

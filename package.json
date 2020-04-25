@@ -13,10 +13,10 @@
         "react": "^16.13.1",
         "react-copy-to-clipboard": "^5.0.2",
         "react-dom": "^16.13.1",
+        "react-github-corner": "^2.3.0",
         "react-modal": "^3.11.2",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.1",
-        "react-sound": "^1.2.0",
         "socket.io-client": "^2.3.0"
     },
     "scripts": {
@@ -42,5 +42,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://localhost:9995"
+    "proxy": "https://justimerapi.ahmetbugracakici.com"
 }

@@ -11,7 +11,7 @@ import logo from './assets/images/logo_new.png';
 import soundfile from './assets/mp3/bell.mp3';
 import './Timer.css';
 
-const socket = io('http://localhost:9995');
+const socket = io('https://justimerapi.ahmetbugracakici.com');
 
 let socket_check = false;
 export default function Timer(props) {
@@ -20,7 +20,7 @@ export default function Timer(props) {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(59);
   const {timerlink} = props.match.params;
-  let audio = new Audio(soundfile)
+  let audio = new Audio(soundfile);
 
   socket.on('starttimerr', (data) => {
     if (!socket_check) {
@@ -78,7 +78,6 @@ export default function Timer(props) {
 
   const ringHandle = (diffInSecRemain, remainMinToEndSession) => {
     if (diffInSecRemain == 0 && remainMinToEndSession == 0) {
-      console.log("ring")
       audio.play();
     }
   };
@@ -107,7 +106,6 @@ export default function Timer(props) {
   if (!timerData) return <div>Not Found</div>;
   return (
     <div>
-      {/*       <Sound url={soundfile} playStatus={ring} /> */}
       <GithubCorner
         href="https://github.com/ahmetbcakici/justimer-client"
         direction={'right'}
@@ -119,16 +117,6 @@ export default function Timer(props) {
           <a href="/">
             <img src={logo} alt="logo.png" width={75} />
           </a>
-          <span className="pt-1 input-group-center">
-            {/* {isAdmin ? 'Viewer Link:' : 'Share Link:'} */}
-            Share Link:&emsp;
-            {/* <CopyToClipboard text={`${hostname}/${viewLink}`}> */}
-            <CopyToClipboard text={`localhost:3000/${viewLink}`}>
-              <a href="#">
-                <span>{`localhost:3000/${viewLink}`}</span>
-              </a>
-            </CopyToClipboard>
-          </span>
         </div>
       </div>
 
@@ -152,6 +140,11 @@ export default function Timer(props) {
         <p className="display-1 timer">{`${min}:${sec}`}</p>
         <br />
         {/* <p className="text-center ">{isWork}</p> */}
+        <CopyToClipboard text={`localhost:3000/${viewLink}`}>
+          <a href="#">
+            <span>CLICK HERE TO COPY SHARE LINK</span>
+          </a>
+        </CopyToClipboard>
       </div>
 
       {/* Timer Management Area */}
