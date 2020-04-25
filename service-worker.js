@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/justimer-client/precache-manifest.40d5388f5f5808c391cdf4bfdd1381ef.js"
+  "/justimer-client/precache-manifest.ac8e32f769a17c3f88e85c31197f0f98.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -22,18 +22,14 @@ object-assign
  * http://api.jqueryui.com/category/ui-core/
  */
 
-/** @license
+/*!
+ * The buffer module from node.js, for the browser.
  *
- * SoundManager 2: JavaScript Sound for the Web
- * ----------------------------------------------
- * http://schillmania.com/projects/soundmanager2/
- *
- * Copyright (c) 2007, Scott Schiller. All rights reserved.
- * Code provided under the BSD License:
- * http://schillmania.com/projects/soundmanager2/license.txt
- *
- * V2.97a.20170601
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
  */
+
+/*! https://mths.be/utf8js v2.1.2 by @mathias */
 
 /** @license React v0.19.1
  * scheduler.production.min.js

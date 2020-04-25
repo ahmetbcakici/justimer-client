@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/justimer-client/static/css/main.15dc6f8f.chunk.css",
-    "main.js": "/justimer-client/static/js/main.d412f7c5.chunk.js",
-    "main.js.map": "/justimer-client/static/js/main.d412f7c5.chunk.js.map",
+    "main.css": "/justimer-client/static/css/main.5fde7acf.chunk.css",
+    "main.js": "/justimer-client/static/js/main.03dfbbc0.chunk.js",
+    "main.js.map": "/justimer-client/static/js/main.03dfbbc0.chunk.js.map",
     "runtime-main.js": "/justimer-client/static/js/runtime-main.48778d15.js",
     "runtime-main.js.map": "/justimer-client/static/js/runtime-main.48778d15.js.map",
-    "static/js/2.460e2569.chunk.js": "/justimer-client/static/js/2.460e2569.chunk.js",
-    "static/js/2.460e2569.chunk.js.map": "/justimer-client/static/js/2.460e2569.chunk.js.map",
+    "static/js/2.6c73167f.chunk.js": "/justimer-client/static/js/2.6c73167f.chunk.js",
+    "static/js/2.6c73167f.chunk.js.map": "/justimer-client/static/js/2.6c73167f.chunk.js.map",
     "index.html": "/justimer-client/index.html",
-    "precache-manifest.40d5388f5f5808c391cdf4bfdd1381ef.js": "/justimer-client/precache-manifest.40d5388f5f5808c391cdf4bfdd1381ef.js",
+    "precache-manifest.ac8e32f769a17c3f88e85c31197f0f98.js": "/justimer-client/precache-manifest.ac8e32f769a17c3f88e85c31197f0f98.js",
     "service-worker.js": "/justimer-client/service-worker.js",
-    "static/css/main.15dc6f8f.chunk.css.map": "/justimer-client/static/css/main.15dc6f8f.chunk.css.map",
-    "static/js/2.460e2569.chunk.js.LICENSE.txt": "/justimer-client/static/js/2.460e2569.chunk.js.LICENSE.txt",
-    "static/media/bell.mp3": "/justimer-client/static/media/bell.a9d98db5.mp3"
+    "static/css/main.5fde7acf.chunk.css.map": "/justimer-client/static/css/main.5fde7acf.chunk.css.map",
+    "static/js/2.6c73167f.chunk.js.LICENSE.txt": "/justimer-client/static/js/2.6c73167f.chunk.js.LICENSE.txt",
+    "static/media/bell.mp3": "/justimer-client/static/media/bell.a9d98db5.mp3",
+    "static/media/logo.png": "/justimer-client/static/media/logo.f94aac27.png"
   },
   "entrypoints": [
     "static/js/runtime-main.48778d15.js",
-    "static/js/2.460e2569.chunk.js",
-    "static/css/main.15dc6f8f.chunk.css",
-    "static/js/main.d412f7c5.chunk.js"
+    "static/js/2.6c73167f.chunk.js",
+    "static/css/main.5fde7acf.chunk.css",
+    "static/js/main.03dfbbc0.chunk.js"
   ]
 }
