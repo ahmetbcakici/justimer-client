@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import axios from '../config/axios';
 import Modal from 'react-modal';
 import {Redirect} from 'react-router-dom';
 
@@ -26,9 +26,9 @@ export default function ChooseArea() {
     setIsModalOpen(false);
   }
 
-  const generateTimer = async () => {
-    //if(!manualTime) return; // can not be empty value
+  const generateTimer = async (isPomodoro) => {
     closeModal();
+        
     const res = await axios.post('/api/generatetimer', {
       manualWorkTime,
       manualBreakTime,
@@ -37,10 +37,16 @@ export default function ChooseArea() {
   };
 
   if (redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />;
+  /* if (redirectTo.length > 0) return <Redirect to={`/justimer-client/${redirectTo}`} />; */
 
   return (
     <div className="parent">
-      <h1 className="text-center">TIMER</h1>
+      {/* <h1 className="text-center">TIMER</h1> */}
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <div className="row">
         <div className="col-6 pomodoro-section pt-5">
           <p className="text-center pt-5">

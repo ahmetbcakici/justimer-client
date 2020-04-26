@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../assets/images/logo.png';
 import GithubCorner from 'react-github-corner';
 import './Navbar.css';
 

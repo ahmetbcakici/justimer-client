@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-//import './index.css';
 import App from './App';
 import Timer from './Timer';
 import * as serviceWorker from './serviceWorker';
@@ -12,6 +11,8 @@ ReactDOM.render(
       <Switch>
         <Route component={App} path="/" exact />
         <Route component={Timer} path="/:timerlink" exact />
+  {/*       <Route component={App} path="/justimer-client/" exact />
+        <Route component={Timer} path="/justimer-client/:timerlink" exact /> */}
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

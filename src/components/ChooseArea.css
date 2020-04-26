@@ -1,6 +1,6 @@
 .parent {
     font-family: 'Bangers', cursive;
-    height: 90vh;
+    height: 100vh;
     background: linear-gradient(to bottom, #333 0%, #333 17%, #2f2f2f 42%, #272727 64%, #151515 100%);
     overflow: hidden;
 }

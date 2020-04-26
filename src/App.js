@@ -1,8 +1,5 @@
 import React from 'react';
-import Navbar from './components/Navbar';
 import ChooseArea from './components/ChooseArea';
-import Content from './components/Content';
-import Footer from './components/Footer';
 import GithubCorner from 'react-github-corner';
 
 
@@ -18,8 +15,6 @@ function App() {
         size={107}
       />
       <ChooseArea/> 
-      {/* <Content/>  */}
-      <Footer/> 
     </div>
   );
 }

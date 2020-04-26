@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {differenceInSeconds, differenceInMinutes} from 'date-fns';
-import axios from 'axios';
+import axios from './config/axios';
 import io from 'socket.io-client';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import GithubCorner from 'react-github-corner';
 import logo from './assets/images/logo_new.png';
 import soundfile from './assets/mp3/bell.mp3';
@@ -109,12 +107,24 @@ export default function Timer(props) {
       <GithubCorner
         href="https://github.com/ahmetbcakici/justimer-client"
         direction={'right'}
-        size={95}
+        size={91}
       />
       {/* Viewer Link Area */}
       <div className="p-2 bg-dark text-white text-center">
-        <div className="text-left p-0 m-0">
-          <a href="/">
+        <div className="text-center bangers">
+          <br/>
+          <CopyToClipboard
+            text={`https://ahmetbcakici.github.io/justimer-client/${viewLink}`}
+          >
+            <a href="#">
+              <span>CLICK HERE TO COPY SHARE LINK</span>
+            </a>
+          </CopyToClipboard>
+          <br/>
+          <br/>
+        </div>
+        <div className="text-left p-0 m-0" class="justimer-logo">
+          <a href="https://ahmetbcakici.github.io/justimer-client/">
             <img src={logo} alt="logo.png" width={75} />
           </a>
         </div>
@@ -137,34 +147,13 @@ export default function Timer(props) {
         </p>
       </div>
       <div className="text-center timer-area">
+        <br/>
+        <br/>
+        <br/>
         <p className="display-1 timer">{`${min}:${sec}`}</p>
         <br />
         {/* <p className="text-center ">{isWork}</p> */}
-        <CopyToClipboard text={`localhost:3000/${viewLink}`}>
-          <a href="#">
-            <span>CLICK HERE TO COPY SHARE LINK</span>
-          </a>
-        </CopyToClipboard>
       </div>
-
-      {/* Timer Management Area */}
-      {/*    <div className="text-center" style={{display: !isAdmin ? 'none' : ''}}>
-        <button
-          type="button"
-          className="btn btn-secondary btn-lg w-100"
-          onClick={() => {
-            startTimer();
-          }}
-          disabled={firstRunTimerTime ? true : false}
-        >
-          <br/>
-          {firstRunTimerTime ? 'Timer Started' : 'Start Timer'}
-          <br/>
-          <br/>
-        </button>
-        <br />
-        <br />
-      </div> */}
     </div>
   );
 }
