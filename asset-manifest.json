@@ -1,24 +1,23 @@
 {
   "files": {
-    "main.css": "/justimer-client/static/css/main.5fde7acf.chunk.css",
-    "main.js": "/justimer-client/static/js/main.a3bffee6.chunk.js",
-    "main.js.map": "/justimer-client/static/js/main.a3bffee6.chunk.js.map",
+    "main.css": "/justimer-client/static/css/main.6fb10651.chunk.css",
+    "main.js": "/justimer-client/static/js/main.1e50d958.chunk.js",
+    "main.js.map": "/justimer-client/static/js/main.1e50d958.chunk.js.map",
     "runtime-main.js": "/justimer-client/static/js/runtime-main.48778d15.js",
     "runtime-main.js.map": "/justimer-client/static/js/runtime-main.48778d15.js.map",
-    "static/js/2.ca249be8.chunk.js": "/justimer-client/static/js/2.ca249be8.chunk.js",
-    "static/js/2.ca249be8.chunk.js.map": "/justimer-client/static/js/2.ca249be8.chunk.js.map",
+    "static/js/2.0bcadf1a.chunk.js": "/justimer-client/static/js/2.0bcadf1a.chunk.js",
+    "static/js/2.0bcadf1a.chunk.js.map": "/justimer-client/static/js/2.0bcadf1a.chunk.js.map",
     "index.html": "/justimer-client/index.html",
-    "precache-manifest.e8981257d0eb780ba6f4076a847bbe84.js": "/justimer-client/precache-manifest.e8981257d0eb780ba6f4076a847bbe84.js",
+    "precache-manifest.2bffcf53fce6c4b6ce4732ddcabaac8f.js": "/justimer-client/precache-manifest.2bffcf53fce6c4b6ce4732ddcabaac8f.js",
     "service-worker.js": "/justimer-client/service-worker.js",
-    "static/css/main.5fde7acf.chunk.css.map": "/justimer-client/static/css/main.5fde7acf.chunk.css.map",
-    "static/js/2.ca249be8.chunk.js.LICENSE.txt": "/justimer-client/static/js/2.ca249be8.chunk.js.LICENSE.txt",
-    "static/media/bell.mp3": "/justimer-client/static/media/bell.a9d98db5.mp3",
-    "static/media/logo.png": "/justimer-client/static/media/logo.f94aac27.png"
+    "static/css/main.6fb10651.chunk.css.map": "/justimer-client/static/css/main.6fb10651.chunk.css.map",
+    "static/js/2.0bcadf1a.chunk.js.LICENSE.txt": "/justimer-client/static/js/2.0bcadf1a.chunk.js.LICENSE.txt",
+    "static/media/bell.mp3": "/justimer-client/static/media/bell.a9d98db5.mp3"
   },
   "entrypoints": [
     "static/js/runtime-main.48778d15.js",
-    "static/js/2.ca249be8.chunk.js",
-    "static/css/main.5fde7acf.chunk.css",
-    "static/js/main.a3bffee6.chunk.js"
+    "static/js/2.0bcadf1a.chunk.js",
+    "static/css/main.6fb10651.chunk.css",
+    "static/js/main.1e50d958.chunk.js"
   ]
 }
