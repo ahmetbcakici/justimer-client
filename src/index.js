@@ -11,8 +11,8 @@ ReactDOM.render(
       <Switch>
         {/* <Route component={App} path="/" exact />
         <Route component={Timer} path="/:timerlink" exact /> */}
-        <Route component={App} path="/justimer-client/" exact />
-        <Route component={Timer} path="/justimer-client/:timerlink" exact />
+        <Route component={App} path="/" exact />
+        <Route component={Timer} path="/:timerlink" exact />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

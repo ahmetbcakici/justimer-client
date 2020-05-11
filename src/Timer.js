@@ -114,7 +114,7 @@ export default function Timer(props) {
         <div className="text-center bangers">
           <br/>
           <CopyToClipboard
-            text={`https://ahmetbcakici.github.io/justimer-client/${viewLink}`}
+            text={`https://justimer.ahmetbugracakici.com/${viewLink}`}
           >
             <a href="#">
               <span>CLICK HERE TO COPY SHARE LINK</span>
@@ -124,7 +124,7 @@ export default function Timer(props) {
           <br/>
         </div>
         <div className="text-left p-0 m-0" class="justimer-logo">
-          <a href="https://ahmetbcakici.github.io/justimer-client/">
+          <a href="https://justimer.ahmetbugracakici.com">
             <img src={logo} alt="logo.png" width={75} />
           </a>
         </div>

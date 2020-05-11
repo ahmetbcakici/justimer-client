@@ -37,7 +37,7 @@ export default function ChooseArea() {
   };
 
   /* if (redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />; */
-  if (redirectTo.length > 0) return <Redirect to={`/justimer-client/${redirectTo}`} />;
+  if (redirectTo.length > 0) return <Redirect to={`/${redirectTo}`} />;
 
   return (
     <div className="parent">
