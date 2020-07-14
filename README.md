@@ -1,6 +1,7 @@
-# JusTİmer
+# JusTimer
 
 You can generate timers and share them to work together or do something else.
+[To go to API Repo](https://github.com/ahmetbcakici/justimer-api)
 
 ## Installation
 ```
